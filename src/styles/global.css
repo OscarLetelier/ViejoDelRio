@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  /* Personalización de colores basada en el logo y el café */
+  --color-cafe-dark: #2c1810;
+  --color-cafe-primary: #8b5e3c;
+  --color-rio-sand: #f5f0e6; /* Fondo suave */
+  --color-rio-accent: #d97706; /* Color mote con huesillo */
+}
+
+body {
+  background-color: var(--color-rio-sand);
+  color: var(--color-cafe-dark);
+  font-family: system-ui, -apple-system, sans-serif;
+}
