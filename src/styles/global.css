@@ -13,3 +13,13 @@ body {
   color: var(--color-cafe-dark);
   font-family: system-ui, -apple-system, sans-serif;
 }
+
+/* Ocultar barra de scroll en navegadores Chrome/Safari/Edge */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Ocultar barra de scroll en Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

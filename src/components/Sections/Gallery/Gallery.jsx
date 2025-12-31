@@ -10,7 +10,7 @@ const Gallery = () => {
   ];
 
   return (
-    <section className="py-20 bg-[#F5F0E6]">
+    <section id="gallery" className="py-20 bg-[#F5F0E6]">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold text-[#2C1810] mb-2">
           Momentos en el Río

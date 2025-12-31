@@ -31,7 +31,7 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-16 bg-[#F5F0E6]">
+    <section id="services" className="py-16 bg-[#F5F0E6]">
       {" "}
       {/* Fondo Arena suave */}
       <div className="container mx-auto px-4">
