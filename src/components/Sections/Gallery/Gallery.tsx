@@ -1,8 +1,8 @@
 import React from "react";
 
-const Gallery = () => {
+const Gallery: React.FC = () => {
   // Imágenes placeholder
-  const images = [
+  const images: string[] = [
     "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=800", // Café mesa
     "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800", // Grano café
     "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800", // Muffin

@@ -3,7 +3,7 @@ import React from "react";
 const imageUrl =
   "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2574&auto=format&fit=crop";
 
-const About = () => {
+const About: React.FC = () => {
   return (
     <section id="about" className="py-20 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
@@ -35,7 +35,7 @@ const About = () => {
               una pausa en el río.
             </h2>
             <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-              "El Viejo del Río" nació con la idea de recuperar la tradición de
+              &quot;El Viejo del Río&quot; nació con la idea de recuperar la tradición de
               disfrutar las tardes en el **Parque Río Claro**. Somos un punto de
               encuentro para familias, amigos y amantes de la naturaleza.
             </p>

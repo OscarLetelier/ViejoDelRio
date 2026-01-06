@@ -1,8 +1,8 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom"; // Para navegar a otra página
+
 import { Link as ScrollLink } from "react-scroll"; // Para hacer scroll en la misma página
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
     <section
       id="home"
@@ -32,12 +32,16 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           {/* BOTÓN 1: Ir a la página del Menú Completo */}
-          <RouterLink
-            to="/menu"
+          {/* BOTÓN 1: Ir a la sección Menú */}
+          <ScrollLink
+            to="menu"
+            smooth={true}
+            duration={800}
+            offset={-80}
             className="px-8 py-3 bg-[#D97706] text-white font-bold rounded-full hover:bg-[#b56305] transition-all shadow-lg transform hover:-translate-y-1 cursor-pointer flex items-center justify-center"
           >
             Ver Menú
-          </RouterLink>
+          </ScrollLink>
 
           {/* BOTÓN 2: Bajar suavemente a la sección de Ubicación */}
           <ScrollLink
