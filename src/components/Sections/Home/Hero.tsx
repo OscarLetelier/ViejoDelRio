@@ -1,59 +1,113 @@
 import React from "react";
-
-import { Link as ScrollLink } from "react-scroll"; // Para hacer scroll en la misma página
+import { Link as ScrollLink } from "react-scroll";
+import { motion } from "framer-motion";
+import { HiArrowNarrowRight, HiChevronDown } from "react-icons/hi";
+import styles from "./Hero.module.css"; // Importamos el CSS Module
+import { fadeInUp } from "./heroAnimations"; // Importamos la lógica de animación
 
 const Hero: React.FC = () => {
+  // Clases utilitarias para los botones (Reutilizables en este contexto)
+  const btnBase =
+    "px-10 py-4 rounded-full font-bold transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95";
+  const btnPrimary = `${btnBase} bg-[#D97706] text-white shadow-xl shadow-orange-500/20 hover:bg-[#b56305] hover:shadow-orange-500/30 group`;
+  const btnGhost = `${btnBase} bg-transparent border-2 border-[#2C1810]/10 text-[#2C1810] hover:bg-[#2C1810] hover:text-white hover:border-[#2C1810]`;
+
   return (
-    <section
-      id="home"
-      className="relative w-full h-[90vh] flex items-center justify-center overflow-hidden"
-    >
-      {/* Background Image Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=2561&auto=format&fit=crop"
-          alt="Café en el parque"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/40"></div>
-      </div>
+    <section id="home" className={styles.section} aria-label="Introducción">
+      {/* --- ELEMENTOS DECORATIVOS --- */}
+      <div className={`${styles.blob} ${styles.blobOrange}`} />
+      <div className={`${styles.blob} ${styles.blobBrown}`} />
 
-      {/* Content */}
-      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight drop-shadow-lg">
-          Tu pausa perfecta en el <br />
-          <span className="text-[#D97706]">Parque Río Claro</span>
-        </h1>
+      {/* --- CONTENIDO PRINCIPAL --- */}
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center justify-center h-full">
+        {/* Badge: "Talca - Chile" */}
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+          custom={0.2} // Delay
+          className={styles.badge}
+        >
+          <span className={styles.badgeText}>Talca • Chile</span>
+        </motion.div>
 
-        <p className="text-lg md:text-xl mb-8 text-gray-200 font-light max-w-2xl mx-auto">
-          Disfruta de café de especialidad, desayunos campestres y el mejor mote
-          con huesillo a orillas del río.
-        </p>
+        {/* Título Principal (H1) - Importancia SEO máxima */}
+        <motion.h1
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+          custom={0.3}
+          className={styles.heading}
+        >
+          Tu pausa natural <br />
+          <span className={styles.highlightWrapper}>
+            junto al río
+            {/* SVG Decorativo (Oculto para lectores de pantalla) */}
+            <svg
+              className={styles.svgUnderline}
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 5 Q 50 15 100 5"
+                stroke="currentColor"
+                strokeWidth="3"
+                fill="none"
+              />
+            </svg>
+          </span>
+        </motion.h1>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          {/* BOTÓN 1: Ir a la página del Menú Completo */}
-          {/* BOTÓN 1: Ir a la sección Menú */}
+        {/* Descripción */}
+        <motion.p
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+          custom={0.6}
+          className={styles.description}
+        >
+          Café de especialidad y cocina con alma local. El refugio perfecto en
+          el corazón del{" "}
+          <strong className={styles.strongText}>Parque Río Claro</strong>.
+        </motion.p>
+
+        {/* Botones de Acción */}
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+          custom={0.8}
+          className="flex flex-col sm:flex-row gap-5 w-full justify-center"
+        >
           <ScrollLink
             to="menu"
             smooth={true}
             duration={800}
             offset={-80}
-            className="px-8 py-3 bg-[#D97706] text-white font-bold rounded-full hover:bg-[#b56305] transition-all shadow-lg transform hover:-translate-y-1 cursor-pointer flex items-center justify-center"
+            className={btnPrimary}
+            aria-label="Ver la carta digital"
           >
-            Ver Menú
+            <span>Ver Carta</span>
+            <HiArrowNarrowRight className="group-hover:translate-x-1 transition-transform" />
           </ScrollLink>
 
-          {/* BOTÓN 2: Bajar suavemente a la sección de Ubicación */}
           <ScrollLink
-            to="location" // Este ID debe existir en tu sección de mapa/ubicación
+            to="location"
             smooth={true}
             duration={800}
-            offset={-80} // Ajuste para que el navbar no tape el título
-            className="px-8 py-3 bg-white/10 backdrop-blur-md border border-white text-white font-bold rounded-full hover:bg-white hover:text-[#2C1810] transition-all cursor-pointer flex items-center justify-center"
+            offset={-80}
+            className={btnGhost}
+            aria-label="Ver ubicación y cómo llegar"
           >
             Cómo llegar
           </ScrollLink>
-        </div>
+        </motion.div>
+      </div>
+
+      {/* Indicador Scroll */}
+      <div className={styles.scrollIndicator} aria-hidden="true">
+        <HiChevronDown size={28} />
       </div>
     </section>
   );

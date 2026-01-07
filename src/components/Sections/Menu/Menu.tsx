@@ -1,124 +1,157 @@
-import React, { useState } from "react";
-import { menuItems } from "@/data/menu";
-import { HiSparkles } from "react-icons/hi";
+import React, { useState, useMemo } from "react";
+import { menuItems } from "@/data/menu"; // Asegúrate de que esta ruta sea correcta
 import { motion, AnimatePresence } from "framer-motion";
+import { HiSparkles } from "react-icons/hi";
+import styles from "./Menu.module.css";
+import { containerVariants, itemVariants } from "./menuAnimations";
 
 const Menu: React.FC = () => {
-  const categories: string[] = ["Todos", ...new Set(menuItems.map((item) => item.category))];
+  // 1. Memoizamos las categorías para no recalcularlas en cada render
+  const categories = useMemo(() => {
+    return ["Todos", ...new Set(menuItems.map((item) => item.category))];
+  }, []); // Dependencia vacía porque menuItems es estático (si viniera de API, sería dependency)
+
   const [activeCategory, setActiveCategory] = useState<string>("Todos");
 
-  const filteredItems = activeCategory === "Todos"
-    ? menuItems
-    : menuItems.filter((item) => item.category === activeCategory);
+  // 2. Lógica de filtrado optimizada
+  const { filteredItems, displayGroups } = useMemo(() => {
+    const items =
+      activeCategory === "Todos"
+        ? menuItems
+        : menuItems.filter((item) => item.category === activeCategory);
+
+    const groups =
+      activeCategory === "Todos"
+        ? categories.filter((c) => c !== "Todos")
+        : [activeCategory];
+
+    return { filteredItems: items, displayGroups: groups };
+  }, [activeCategory, categories]);
 
   return (
-    <section id="menu" className="py-24 bg-white scroll-mt-20">
-      <div className="container mx-auto px-4">
-        {/* Encabezado */}
-        <div className="text-center mb-16">
-          <span className="text-[#D97706] font-bold uppercase tracking-widest text-sm">
-            Nuestra Carta
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#2C1810] mt-4 font-serif">
-            Sabores del Río
-          </h2>
-          <div className="w-24 h-1 bg-[#D97706] mx-auto mt-6 rounded-full"></div>
-          <p className="text-gray-500 mt-6 text-lg max-w-2xl mx-auto">
-            Disfruta de nuestra selección de cafés, bebidas refrescantes y dulces tradicionales.
-            Preparados con cariño para tu pausa en el parque.
-          </p>
+    <section id="menu" className={styles.section} aria-label="Menú y Carta">
+      {/* Fondo decorativo */}
+      <div className={styles.watermark} aria-hidden="true">
+        <span className={styles.watermarkText}>El Viejo del Río</span>
+      </div>
+
+      <div className={styles.container}>
+        {/* --- ENCABEZADO --- */}
+        <div className={styles.headerWrapper}>
+          <span className={styles.subHeading}>Propuesta Gastronómica</span>
+          <h2 className={styles.heading}>Nuestra Carta</h2>
+          <div className={styles.divider} aria-hidden="true"></div>
         </div>
 
-        {/* Categorías (Filtros) */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* --- FILTROS (TABS) --- */}
+        <div
+          className={styles.filterContainer}
+          role="tablist"
+          aria-label="Filtros de menú"
+        >
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`
-                px-6 py-2 rounded-full text-sm md:text-base font-bold transition-all duration-300 border
-                ${
-                  activeCategory === cat
-                    ? "bg-[#D97706] text-white border-[#D97706] shadow-md transform scale-105"
-                    : "bg-white text-[#5D4037] border-[#EFEBE9] hover:border-[#D97706] hover:text-[#D97706] hover:bg-orange-50"
-                }
-              `}
+              role="tab"
+              aria-selected={activeCategory === cat}
+              aria-controls={`panel-${cat}`}
+              className={`${styles.filterBtn} ${
+                activeCategory === cat ? styles.filterBtnActive : ""
+              }`}
             >
               {cat}
             </button>
           ))}
         </div>
 
-        {/* Grid de Productos */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <AnimatePresence>
-            {filteredItems.map((item) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                key={item.id}
-                className="group relative bg-white rounded-2xl shadow-lg overflow-hidden border border-[#EFEBE9] hover:shadow-xl transition-shadow duration-300"
-              >
-                {/* Imagen */}
-                <div className="h-64 overflow-hidden relative">
-                   <div className="absolute inset-0 bg-black/20 z-10 group-hover:bg-black/10 transition-colors"></div>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  {/* Badge */}
-                  {item.tag && (
-                    <span className="absolute top-4 right-4 z-20 bg-[#D97706] text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                      {item.tag}
-                    </span>
+        {/* --- CARTA DE PAPEL --- */}
+        <div className={styles.paperCard}>
+          <div className={styles.paperTexture} aria-hidden="true"></div>
+
+          <motion.div
+            layout
+            className="space-y-12" // Espaciado vertical entre grupos
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {displayGroups.map((groupName) => {
+              const itemsInGroup = filteredItems.filter(
+                (item) => item.category === groupName
+              );
+              if (itemsInGroup.length === 0) return null;
+
+              return (
+                <div key={groupName} id={`panel-${groupName}`} role="tabpanel">
+                  {/* Título de Grupo (Solo si vemos "Todos") */}
+                  {activeCategory === "Todos" && (
+                    <h3 className={styles.groupTitle}>{groupName}</h3>
                   )}
-                </div>
 
-                {/* Contenido */}
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                     <span className="text-xs font-bold text-[#D97706] uppercase tracking-wider">
-                      {item.category}
-                    </span>
-                     <div className="flex items-center gap-1 text-[#D97706]">
-                        {item.featured && <HiSparkles className="text-yellow-500" title="Destacado"/>}
-                     </div>
-                  </div>
-                 
-                  <h3 className="text-xl font-bold text-[#2C1810] mb-2 font-serif group-hover:text-[#D97706] transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm mb-6 line-clamp-2 h-10">
-                    {item.description}
-                  </p>
+                  {/* Lista de Ítems */}
+                  <div className={styles.itemsContainer}>
+                    <AnimatePresence mode="popLayout">
+                      {itemsInGroup.map((item) => (
+                        <motion.div
+                          layout
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          key={item.id}
+                          className="group" // Para hover effects si fueran necesarios
+                        >
+                          {/* Fila Principal */}
+                          <div className={styles.itemRow}>
+                            <h4 className={styles.itemTitle}>
+                              {item.title}
+                              {item.featured && (
+                                <HiSparkles
+                                  className="inline-block ml-2 text-yellow-500 text-sm mb-1"
+                                  title="Recomendado"
+                                  aria-label="Plato destacado"
+                                />
+                              )}
+                            </h4>
 
-                  <div className="flex justify-between items-center pt-4 border-t border-dashed border-[#EFEBE9]">
-                    <span className="text-2xl font-bold text-[#2C1810]">
-                      {item.price}
-                    </span>
-                    <button className="text-sm font-bold text-[#5D4037] bg-[#FAF9F6] border border-[#D7CCC8] px-4 py-2 rounded-full hover:bg-[#D97706] hover:text-white hover:border-[#D97706] transition-all">
-                      Ordenar
-                    </button>
+                            {/* Línea punteada */}
+                            <div
+                              className={styles.dotLeader}
+                              aria-hidden="true"
+                            ></div>
+
+                            <span className={styles.itemPrice}>
+                              {item.price}
+                            </span>
+                          </div>
+
+                          {/* Descripción y Tags */}
+                          <div className={styles.itemMeta}>
+                            <p className={styles.itemDesc}>
+                              {item.description}
+                            </p>
+                            {item.tag && (
+                              <span className={styles.itemTag}>{item.tag}</span>
+                            )}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-        
-        <div className="text-center mt-12 bg-[#F5F0E6] p-4 rounded-xl inline-block mx-auto">
-             <p className="text-[#8D6E63] text-sm italic">
-            * Consulta por nuestra disponibilidad diaria y opciones veganas.
-          </p>
+              );
+            })}
+          </motion.div>
+
+          {/* Footer de la Carta */}
+          <div className={styles.cardFooter}>
+            <p className={styles.disclaimer}>
+              * Todos nuestros precios incluyen IVA. Ingredientes sujetos a
+              disponibilidad de temporada.
+            </p>
+          </div>
         </div>
-
       </div>
     </section>
   );

@@ -1,0 +1,257 @@
+/* components/Sections/Menu/Menu.module.css */
+
+.section {
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  background-color: var(--color-rio-sand);
+  overflow: hidden;
+  scroll-margin-top: 5rem; /* Para que el scroll no quede pegado arriba */
+}
+
+/* Marca de agua gigante de fondo */
+.watermark {
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  overflow: hidden;
+  user-select: none;
+  z-index: 0;
+}
+
+.watermarkText {
+  font-size: 15rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-cafe-dark);
+  white-space: nowrap;
+  display: block;
+  transform: rotate(-12deg);
+  margin-left: -10%;
+}
+
+.container {
+  max-width: 56rem; /* max-w-4xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Encabezados */
+.headerWrapper {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.subHeading {
+  color: var(--color-rio-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+}
+
+.heading {
+  font-size: 3rem; /* text-5xl */
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-cafe-dark);
+  margin-top: 1rem;
+}
+@media (min-width: 768px) {
+  .heading {
+    font-size: 3.75rem; /* text-6xl */
+  }
+}
+
+.divider {
+  width: 6rem;
+  height: 0.25rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-cafe-primary),
+    transparent
+  );
+  margin: 1.5rem auto 0;
+  opacity: 0.5;
+  border-radius: 9999px;
+}
+
+/* Botones de Filtro */
+.filterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 4rem;
+}
+
+.filterBtn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--color-cafe-primary);
+  border-color: rgba(139, 94, 60, 0.3); /* cafe-primary / 30 */
+}
+
+.filterBtn:hover {
+  border-color: var(--color-rio-accent);
+  color: var(--color-rio-accent);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.filterBtnActive {
+  background-color: var(--color-cafe-dark);
+  color: var(--color-rio-sand);
+  border-color: var(--color-cafe-dark);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.filterBtnActive:hover {
+  background-color: var(--color-cafe-dark);
+  color: var(--color-rio-sand);
+  border-color: var(--color-cafe-dark);
+}
+
+/* Carta de Papel (Paper Card) */
+.paperCard {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.25rem; /* rounded-sm */
+  box-shadow: var(--shadow-warm);
+  border: 1px solid #e5e5e5;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .paperCard {
+    padding: 3rem;
+  }
+}
+
+/* Textura de papel superpuesta */
+.paperTexture {
+  position: absolute;
+  inset: 0;
+  /* Nota: Idealmente descarga esta imagen y ponla en /public/textures/paper.png */
+  background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+  opacity: 0.4;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* Grupos y Lista */
+.groupTitle {
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-rio-accent);
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(215, 204, 200, 0.3);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Item Individual */
+.itemRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+
+.itemTitle {
+  font-size: 1.125rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-cafe-dark);
+  transition: color 0.2s;
+}
+
+@media (min-width: 768px) {
+  .itemTitle {
+    font-size: 1.25rem;
+  }
+}
+
+/* Línea de puntos conectora */
+.dotLeader {
+  flex-grow: 1;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-bottom: 2px dotted rgba(215, 204, 200, 0.5); /* cafe-light */
+  position: relative;
+  top: -4px;
+}
+
+.itemPrice {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-cafe-dark);
+  font-family: var(--font-sans);
+}
+
+.itemMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 0.25rem;
+}
+
+.itemDesc {
+  color: #6b7280; /* gray-500 */
+  font-size: 0.875rem;
+  font-style: italic;
+  font-family: var(--font-serif);
+  max-width: 85%;
+  line-height: 1.5;
+}
+
+.itemTag {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-cafe-primary);
+  background-color: rgba(215, 204, 200, 0.2);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+  white-space: nowrap;
+}
+
+/* Footer de la carta */
+.cardFooter {
+  margin-top: 4rem;
+  text-align: center;
+  border-top: 1px solid rgba(215, 204, 200, 0.3);
+  padding-top: 2rem;
+}
+
+.disclaimer {
+  color: var(--color-cafe-primary);
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  font-style: italic;
+}

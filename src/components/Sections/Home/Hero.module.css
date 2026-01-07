@@ -1,0 +1,152 @@
+/* Contenedor principal: Maneja el espaciado y el posicionamiento */
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 6rem;
+  padding-bottom: 5rem; /* pb-20 */
+  background-color: var(--color-rio-sand, #faf9f6);
+}
+
+/* Manchas decorativas (Blobs) */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(100px);
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+.blobOrange {
+  top: -10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(217, 119, 6, 0.1); /* Orange-600 con opacidad */
+}
+
+.blobBrown {
+  bottom: -10%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(44, 24, 16, 0.05); /* Cafe-dark con opacidad */
+}
+
+/* Badge "Talca - Chile" */
+.badge {
+  display: inline-block;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(44, 24, 16, 0.1);
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.badgeText {
+  color: var(--color-cafe-dark, #2c1810);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: var(--font-sans, sans-serif);
+}
+
+/* Títulos */
+.heading {
+  font-size: 3rem;
+  line-height: 1.1;
+  font-family: var(--font-serif, serif);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--color-cafe-dark, #2c1810);
+}
+
+/* Media Query para pantallas grandes */
+@media (min-width: 768px) {
+  .heading {
+    font-size: 4.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 6rem;
+  }
+}
+
+/* Span con subrayado creativo */
+.highlightWrapper {
+  font-style: italic;
+  color: var(--color-rio-accent, #d97706);
+  position: relative;
+  display: inline-block;
+}
+
+.svgUnderline {
+  position: absolute;
+  width: 110%;
+  height: 0.75rem;
+  bottom: -0.25rem;
+  left: -5%;
+  color: rgba(217, 119, 6, 0.3);
+  pointer-events: none;
+}
+
+/* Descripción */
+.description {
+  font-size: 1.125rem;
+  margin-bottom: 3rem;
+  color: #5d4037;
+  font-family: var(--font-sans, sans-serif);
+  font-weight: 300;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.625;
+}
+
+@media (min-width: 768px) {
+  .description {
+    font-size: 1.5rem;
+  }
+}
+
+.strongText {
+  color: var(--color-rio-accent, #d97706);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Indicador de Scroll */
+.scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  color: rgba(44, 24, 16, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translate(-50%, -25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translate(-50%, 0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}

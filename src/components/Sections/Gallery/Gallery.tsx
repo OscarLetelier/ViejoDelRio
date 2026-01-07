@@ -1,39 +1,132 @@
 import React from "react";
+import { FaInstagram } from "react-icons/fa";
+import { HiArrowRight } from "react-icons/hi";
+import { motion } from "framer-motion";
+import styles from "./Gallery.module.css";
+import { fadeUpItem } from "./galleryAnimations";
+
+// Definimos los tipos de layout permitidos
+type GridLayout = "standard" | "tall" | "big";
+
+interface GalleryItem {
+  id: number;
+  src: string;
+  alt: string;
+  layout: GridLayout; // Mucho más limpio que pasar strings de clases
+}
+
+const galleryItems: GalleryItem[] = [
+  {
+    id: 1,
+    src: "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=800",
+    alt: "Latte Art en la mesa",
+    layout: "tall", // Vertical
+  },
+  {
+    id: 2,
+    src: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800",
+    alt: "Granos tostados",
+    layout: "standard",
+  },
+  {
+    id: 3,
+    src: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800",
+    alt: "Dulces del día",
+    layout: "standard",
+  },
+  {
+    id: 4,
+    src: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=2561",
+    alt: "Atardecer en el Río",
+    layout: "big", // El protagonista
+  },
+  {
+    id: 5,
+    src: "https://images.unsplash.com/photo-1507133750069-bef72f3707a9?q=80&w=800",
+    alt: "Disfrutando el parque",
+    layout: "standard",
+  },
+  {
+    id: 6,
+    src: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800",
+    alt: "Refresco de verano",
+    layout: "standard",
+  },
+];
+
+// Helper para mapear el layout a la clase CSS correspondiente
+const getCardClass = (layout: GridLayout) => {
+  switch (layout) {
+    case "tall":
+      return styles.cardTall;
+    case "big":
+      return styles.cardBig;
+    default:
+      return styles.cardStandard;
+  }
+};
 
 const Gallery: React.FC = () => {
-  // Imágenes placeholder
-  const images: string[] = [
-    "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=800", // Café mesa
-    "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800", // Grano café
-    "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800", // Muffin
-    "https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=800", // Lugar
-  ];
-
   return (
-    <section id="gallery" className="py-20 bg-[#F5F0E6]">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-[#2C1810] mb-2">
-          Momentos en el Río
-        </h2>
-        <p className="text-gray-500 mb-10">
-          Síguenos en Instagram @ElViejoDelRio
-        </p>
+    <section
+      id="gallery"
+      className={styles.section}
+      aria-label="Galería de fotos"
+    >
+      <div className={styles.container}>
+        {/* --- HEADER --- */}
+        <div className={styles.headerWrapper}>
+          <div className="text-left">
+            <span className={styles.subHeading}>Social</span>
+            <h2 className={styles.heading}>
+              Instantes <br />
+              <span className={styles.highlight}>Inolvidables</span>
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {images.map((img, index) => (
-            <div
-              key={index}
-              className={`relative overflow-hidden rounded-2xl group h-64 ${
-                index === 0 ? "md:col-span-2" : ""
-              }`}
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${styles.ctaButton} group`}
+            aria-label="Síguenos en Instagram"
+          >
+            <FaInstagram size={20} />
+            <span className={styles.ctaText}>@ElViejoDelRio</span>
+            <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+
+        {/* --- BENTO GRID --- */}
+        <div className={styles.grid}>
+          {galleryItems.map((item, index) => (
+            <motion.div
+              key={item.id}
+              variants={fadeUpItem}
+              initial="hidden"
+              whileInView="visible"
+              custom={index} // Pasamos el índice para el delay escalonado
+              viewport={{ once: true, margin: "-50px" }}
+              className={`${styles.card} ${getCardClass(item.layout)}`}
             >
+              {/* Imagen */}
               <img
-                src={img}
-                alt={`Galería ${index}`}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                src={item.src}
+                alt={item.alt}
+                className={styles.image}
+                loading="lazy"
+                width={item.layout === "big" ? 800 : 400} // Ayuda al navegador a reservar espacio
+                height={item.layout === "tall" ? 600 : 400}
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
-            </div>
+
+              {/* Overlay Interactivo */}
+              <div className={styles.overlay}>
+                <div className={styles.overlayContent}>
+                  <FaInstagram className="text-white text-3xl mx-auto mb-2 drop-shadow-lg" />
+                  <span className={styles.overlayBadge}>Ver Post</span>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

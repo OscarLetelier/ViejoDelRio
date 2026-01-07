@@ -1,0 +1,13 @@
+# Permitir acceso a todos los bots (Googlebot, Bingbot, etc.)
+User-agent: *
+Allow: /
+
+# Bloquear rutas que no quieres que aparezcan en Google (Opcional)
+# Si tuvieras un panel de administración o una API interna:
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+
+# Importante: Indica dónde está tu mapa del sitio
+# Reemplaza 'tu-dominio.cl' por tu URL real cuando la compres
+Sitemap: https://www.elviejodelrio.cl/sitemap.xml

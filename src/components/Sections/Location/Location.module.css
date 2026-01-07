@@ -1,0 +1,273 @@
+/* components/Sections/Location/Location.module.css */
+
+.section {
+  position: relative;
+  background-color: var(--color-cafe-dark);
+  color: var(--color-rio-sand);
+  padding-top: 6rem;
+  padding-bottom: 2.5rem;
+  overflow: hidden;
+}
+
+/* Patrón SVG de fondo */
+.patternOverlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Grid Principal */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-bottom: 5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+}
+
+/* --- COLUMNA INFO --- */
+.subHeading {
+  color: var(--color-rio-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.heading {
+  font-size: 2.25rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 3rem;
+  }
+}
+
+.gradientText {
+  background: linear-gradient(
+    to right,
+    var(--color-rio-accent),
+    #fdba74
+  ); /* orange-300 */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Lista de Contacto */
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-style: normal; /* Reseteamos estilo de <address> */
+}
+
+.contactItem {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.iconWrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-rio-accent);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.contactItem:hover .iconWrapper {
+  background-color: var(--color-rio-accent);
+  color: #ffffff;
+}
+
+.itemTitle {
+  color: #ffffff;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.itemDesc {
+  color: #9ca3af; /* gray-400 */
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.itemNote {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-rio-accent);
+  opacity: 0.8;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+/* Botón Mapa Externo */
+.mapButton {
+  margin-top: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-rio-accent);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  box-shadow: 0 10px 15px -3px rgba(124, 45, 18, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.mapButton:hover {
+  background-color: #c2410c; /* orange-700 */
+  transform: translateY(-4px);
+}
+
+/* --- COLUMNA MAPA --- */
+.mapFrame {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.iframe {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  /* Filtro Dark Mode para Google Maps */
+  filter: grayscale(100%) invert(90%) hue-rotate(180deg) contrast(80%);
+}
+
+.pinOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.pinIcon {
+  background-color: var(--color-rio-accent);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* --- FOOTER INTEGRADO --- */
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    flex-direction: row;
+  }
+}
+
+.footerLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.8;
+}
+
+.logoIcon {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(217, 119, 6, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  color: #ffffff;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  letter-spacing: 0.025em;
+}
+
+.copyright {
+  color: #6b7280; /* gray-500 */
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.socialIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+  background-color: var(--color-rio-accent);
+  color: #ffffff;
+}
