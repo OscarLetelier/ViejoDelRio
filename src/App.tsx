@@ -1,24 +1,27 @@
-import React from "react";
-// 1. Importamos el Layout (sin "type")
-import MainLayout from "@/components/Layouts/MainLayout/MainLayout";
+import React, { lazy, Suspense } from "react";
 
-// 2. Importamos todas las secciones que creamos
-import Hero from "@/components/Sections/Home/Hero";
-import About from "@/components/Sections/About/About";
-import Menu from "@/components/Sections/Menu/Menu";
-import Gallery from "@/components/Sections/Gallery/Gallery";
-import Location from "@/components/Sections/Location/Location";
+import MainLayout from "@/layouts/mainlayout/MainLayout";
+import FullPageLoader from "@/components/commons/fullpageloader/FullPageLoader";
+
+const Hero = lazy(() => import("@/sections/home/Hero"));
+const About = lazy(() => import("@/sections/about/About"));
+const Menu = lazy(() => import("@/sections/menu/Menu"));
+const Gallery = lazy(() => import("@/sections/gallery/Gallery"));
+const Location = lazy(() => import("@/sections/location/Location"));
 
 const App: React.FC = () => {
   return (
-    // 3. MainLayout actúa como el contenedor (Header + Footer + Ruido)
-    <MainLayout>
-      <Hero />
-      <About />
-      <Menu />
-      <Gallery />
-      <Location />
-    </MainLayout>
+    <>
+      <MainLayout>
+        <Suspense fallback={<FullPageLoader />}>
+          <Hero />
+          <About />
+          <Menu />
+          <Gallery />
+          <Location />
+        </Suspense>
+      </MainLayout>
+    </>
   );
 };
 

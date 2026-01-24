@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "@/components/Commons/Navbar/Navbar";
+import Navbar from "@/components/commons/navbar/Navbar";
 
 const Header: React.FC = () => {
   return (

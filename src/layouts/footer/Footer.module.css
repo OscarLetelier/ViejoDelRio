@@ -1,0 +1,68 @@
+/* --- FOOTER INTEGRADO --- */
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    flex-direction: row;
+  }
+}
+
+.footerLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.8;
+}
+
+.logoIcon {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(217, 119, 6, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  color: #ffffff;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  letter-spacing: 0.025em;
+}
+
+.copyright {
+  color: #6b7280; /* gray-500 */
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.socialIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+  background-color: var(--color-rio-accent);
+  color: #ffffff;
+}
